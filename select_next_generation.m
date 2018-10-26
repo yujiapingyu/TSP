@@ -8,9 +8,7 @@ total_length = size(G, 1);               % 父代和子代的总长度
 all_path_length = [];
 all_path_length(1:total_length) = 0;            % 初始化所有路径的长度为0
 for path_index = 1:total_length                 % 计算每条路径的长度
-    for i = 1:L-1   
-        all_path_length(path_index) = all_path_length(path_index) + distance_matric(path_table(path_index, i), path_table(path_index, i+1));
-    end
+    all_path_length(path_index) = get_path_length(path_table(path_index, :), L, distance_matric);
 end
 
 [sorted_length, sorted_index] = sort(all_path_length);      

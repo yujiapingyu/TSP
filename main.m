@@ -7,10 +7,10 @@ w = 300;                % 种群规模
 iterations = 2000;      % 迭代次数
 cross_rate = 0.9;       % 交叉率
 mutation_rate = 0.1;    % 变异率
-load ch130.mat          % 载入数据集
 % ---------------------------------------
 
 % 从文件中读取信息
+load ch130.mat          % 载入数据集
 point_info = ch130(:,2:3);            
 point_position_x_and_y = [point_info; point_info(1,:)];  
 distance_matric = get_distance_matric(point_info);
@@ -39,11 +39,12 @@ for k=1:iterations
     % 选择下一代
     [A, optimal_path, optimal_path_length] = select_next_generation_improved(A, B, C, w, L, distance_matric);
     
-    plot_path(point_position_x_and_y, optimal_path, optimal_path_length)     % 绘制最优路径图
+    % 绘制最优路径图
+    plot_path(point_position_x_and_y, optimal_path, optimal_path_length)     
     
     % 输出每次迭代的信息
     fprintf('迭代次数%04d，最优路径长度%.5f\n' , k, optimal_path_length); 
 end
 
-toc                                                 % 输出程序运行的时间
+toc                                                                      % 输出程序运行的时间
 plot_path(point_position_x_and_y, optimal_path, optimal_path_length)     % 绘制最优路径图
