@@ -9,7 +9,7 @@ cross_rate = 0.9;       % 交叉率
 mutation_rate = 0.1;    % 变异率
 load ch130.mat          % 载入数据集
 % ---------------------------------------
-
+% ---------------------------------------
 % 从文件中读取信息
 point_info = ch130(:,2:3);            
 point_position_x_and_y = [point_info; point_info(1,:)];  
