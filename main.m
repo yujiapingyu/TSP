@@ -4,7 +4,7 @@ rng('shuffle');         %改变随机数的初始状态
 
 % -----------------参数------------------
 w = 300;                % 种群规模
-iterations = 2000;       % 迭代次数
+iterations = 2000;      % 迭代次数
 cross_rate = 0.9;       % 交叉率
 mutation_rate = 0.1;    % 变异率
 load ch130.mat          % 载入数据集
