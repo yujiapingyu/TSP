@@ -3,7 +3,7 @@ clc,clear
 rng('shuffle');         %改变随机数的初始状态
 
 % -----------------参数------------------
-w = 300;                % 种群规模
+w = 1000;                % 种群规模
 iterations = 2000;      % 迭代次数
 cross_rate = 0.9;       % 交叉率
 mutation_rate = 0.1;    % 变异率
@@ -24,7 +24,7 @@ initial_population = generate_population(w, L);
 A = circle_modification(initial_population, w, L, distance_matric);
 
 % 归一化
-A = normalization(best_A, L);
+A = normalization(A, L);
 
 % 以下为遗传算法实现过程
 for k=1:iterations
@@ -33,7 +33,7 @@ for k=1:iterations
     B = cross(A, w, L, cross_rate);
     
     % 变异产生子代 C
-    C = mutation(A, w, L, mutation_rate);
+    C = mutation(A, w, L, mutation_rate, distance_matric);
     
     % 选择下一代
     [A, optimal_path, optimal_path_length] = select_next_generation_improved(A, B, C, w, L, distance_matric);
