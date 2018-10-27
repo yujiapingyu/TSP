@@ -17,34 +17,11 @@ distance_matric = get_distance_matric(point_info);
 
 L = length(ch130) + 1;              % 为了保证最终能回到起点，实际的个体长度设为L，L的最后一个数和第一个数相同，保证回到起点
 
-best_A = [];
-best_sum = 0;
-for i = 1:100
-    % 产生初始种群
-    initial_population = generate_population(w, L);
+% 产生初始种群
+initial_population = generate_population(w, L);
 
-    % 改良圈改良初始种群
-    A = circle_modification(initial_population, w, L, distance_matric);
-    
-    path_A = zeros([1, w]);
-    for j = 1:w
-        path_A(j) = get_path_length(A(j, :), L, distance_matric);
-    end
-    
-    if i == 1
-        best_sum = sum(path_A);
-        best_A = A;
-    end 
-    
-    if sum(path_A) < best_sum
-        fprintf('HHH==='); 
-        best_sum = sum(path_A);
-        best_A = A;
-    end
-    
-    fprintf('迭代次数%04d\n' , i); 
-        
-end
+% 改良圈改良初始种群
+A = circle_modification(initial_population, w, L, distance_matric);
 
 % 归一化
 A = normalization(best_A, L);
