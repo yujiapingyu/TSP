@@ -27,7 +27,8 @@
 | 10 | plot_path.m | 绘制路径 |
 | 11 | ch130.mat | 130个数据点 |
 | 12 | 6110.mat | 目前跑出的最优路径，load后变量名为optimal_path |
-
+| 13 | 6110.png | 目前跑出的最优路径的图 |
 
 
 ### <font color=red>PS:ch130在网站上给出的最优解为6110.8，目前的程序能在较短时间内快速收敛到6110.7</font>
+<font color=gray size=5>gray</font>
