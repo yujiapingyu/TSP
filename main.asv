@@ -63,10 +63,10 @@ for r_index = 1:restart_times
         last_optimal_path_length = current_optimal_path_length;
         
         % 更新全局最优路径长度
-        if current_optimal_path_length < optimal_path_length
-            optimal_path_length = current_optimal_path_length;
-            optimal_path = current_optimal_path;
-        end
+    if current_optimal_path_length < optimal_path_length
+        optimal_path_length = current_optimal_path_length;
+        optimal_path = current_optimal_path;
+    end
 
         % 绘制最优路径图
         plot_path(point_position_x_and_y, current_optimal_path, current_optimal_path_length)     
