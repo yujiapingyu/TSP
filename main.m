@@ -4,14 +4,14 @@ rng('shuffle');         %改变随机数的初始状态
 
 % -----------------参数------------------
 w = 500;                        % 种群规模
-restart_times = 20;             % 重启次数
+restart_times = 200;             % 重启次数
 iterations = 300;               % 迭代次数
 repeat_time_threshold = 100;    % 重复次数阈值
 % ---------------------------------------
 
 % 从文件中读取信息
 load ch130.mat          % 载入数据集
-point_info = ch130(:,2:3);            
+point_info = ch130(:, 2:3);            
 point_position_x_and_y = [point_info; point_info(1,:)];  
 distance_matrix = get_distance_matrix(point_info);
 
@@ -19,6 +19,11 @@ L = length(ch130) + 1;              % 为了保证最终能回到起点，实际的个体长度设为
 
 optimal_path = zeros([1, L]);       % 记录全局最佳路径
 optimal_path_length = 999999;       % 记录全局最佳路径的长度
+
+ill_path_length = zeros([1, 200]);
+ill_path_num = 0;
+load ill_path_length.mat;
+load ill_path_num.mat;
 
 for r_index = 1:restart_times
     
@@ -48,20 +53,6 @@ for r_index = 1:restart_times
         % 选择下一代
         [A, current_optimal_path, current_optimal_path_length] = select_next_generation(A, B, C, w, L, distance_matrix);
         
-        % 记录重复次数（重复次数过高表示陷入局部最优解）
-        if current_optimal_path_length == last_optimal_path_length
-           same_time = same_time + 1; 
-           if same_time >= repeat_time_threshold
-               
-               break;
-           end
-        else   
-            same_time = 0;  % 重置same_time
-        end
-        
-        % 更新last_optimal_path_length
-        last_optimal_path_length = current_optimal_path_length;
-        
         % 更新全局最优路径长度
         if current_optimal_path_length < optimal_path_length
             optimal_path_length = current_optimal_path_length;
@@ -73,6 +64,28 @@ for r_index = 1:restart_times
 
         % 输出每次迭代的信息
         fprintf('第%0d次重启，迭代次数%04d，最优路径长度%.5f，全局最优路径长度%.5f\n' , r_index, k, current_optimal_path_length, optimal_path_length); 
+        
+        % 记录重复次数（重复次数过高表示陷入局部最优解）
+        if current_optimal_path_length == last_optimal_path_length
+           same_time = same_time + 1; 
+           if same_time >= repeat_time_threshold
+               ill_path_num = ill_path_num + 1;
+               ill_path_length(ill_path_num) = current_optimal_path_length;
+               save ill_path_length.mat ill_path_length;
+               save ill_path_num.mat ill_path_num;
+               break;
+           end
+        else   
+            if ~isempty(find(abs(ill_path_length - current_optimal_path_length) < 1e-5, 1))
+                fprintf('ill_path，重启\n')
+                break;
+            end
+            same_time = 0;  % 重置same_time
+        end
+        
+        % 更新last_optimal_path_length
+        last_optimal_path_length = current_optimal_path_length;
+        
     end
 
 end 
