@@ -32,6 +32,8 @@
 
 PS:ch130在网站上给出的最优解为6110.8，目前的程序能在较短时间内快速收敛到6110.7
 
+![最优路径路](https://raw.githubusercontent.com/yujiapingyu/TSP/master/6110.png "optimal_path_graph")
+
 
 
 
