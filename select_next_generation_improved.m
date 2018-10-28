@@ -3,7 +3,6 @@ function [ A_next, optimal_path, optimal_path_length ] = select_next_generation_
 
 fp = 0.3;                               % 外来人口比例
 np = 0.2;                               % 非最优比例
-big_change = false;                     % 突变
 
 G = [A;B;C];                            % A为原始的，B为交叉后的，C为变异后的
 total_length = size(G, 1);              % 父代和子代的总长度
