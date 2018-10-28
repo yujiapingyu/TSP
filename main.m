@@ -20,11 +20,6 @@ L = length(ch130) + 1;              % 为了保证最终能回到起点，实际的个体长度设为
 optimal_path = zeros([1, L]);       % 记录全局最佳路径
 optimal_path_length = 999999;       % 记录全局最佳路径的长度
 
-ill_path_length = zeros([1, 200]);
-ill_path_num = 0;
-load ill_path_length.mat;
-load ill_path_num.mat;
-
 for r_index = 1:restart_times
     
     current_optimal_path = zeros([1, L]);                       % 记录每次重启的最佳路径
@@ -69,17 +64,9 @@ for r_index = 1:restart_times
         if current_optimal_path_length == last_optimal_path_length
            same_time = same_time + 1; 
            if same_time >= repeat_time_threshold
-               ill_path_num = ill_path_num + 1;
-               ill_path_length(ill_path_num) = current_optimal_path_length;
-               save ill_path_length.mat ill_path_length;
-               save ill_path_num.mat ill_path_num;
                break;
            end
         else   
-            if ~isempty(find(abs(ill_path_length - current_optimal_path_length) < 1e-5, 1))
-                fprintf('ill_path，重启\n')
-                break;
-            end
             same_time = 0;  % 重置same_time
         end
         
