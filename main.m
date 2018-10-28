@@ -46,7 +46,7 @@ for r_index = 1:restart_times
         C = mutation(A, w, L, distance_matric);
 
         % 选择下一代
-        [A, current_optimal_path, current_optimal_path_length] = select_next_generation_improved(A, B, C, w, L, distance_matric);
+        [A, current_optimal_path, current_optimal_path_length] = select_next_generation(A, B, C, w, L, distance_matric);
         
         % 记录重复次数（重复次数过高表示陷入局部最优解）
         if current_optimal_path_length == last_optimal_path_length
