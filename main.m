@@ -13,7 +13,7 @@ repeat_time_threshold = 100;    % 重复次数阈值
 load ch130.mat          % 载入数据集
 point_info = ch130(:,2:3);            
 point_position_x_and_y = [point_info; point_info(1,:)];  
-distance_matric = get_distance_matric(point_info);
+distance_matrix = get_distance_matrix(point_info);
 
 L = length(ch130) + 1;              % 为了保证最终能回到起点，实际的个体长度设为L，L的最后一个数和第一个数相同，保证回到起点
 
@@ -31,7 +31,7 @@ for r_index = 1:restart_times
     initial_population = generate_population(w, L);
 
     % 改良圈改良初始种群
-    A = circle_modification(initial_population, w, L, distance_matric);
+    A = circle_modification(initial_population, w, L, distance_matrix);
 
     % 归一化
     A = normalization(A, L);
@@ -40,13 +40,13 @@ for r_index = 1:restart_times
     for k=1:iterations
 
         % 交叉产生子代 B
-        B = cross(A, w, L, distance_matric);
+        B = cross(A, w, L, distance_matrix);
 
         % 变异产生子代 C
-        C = mutation(A, w, L, distance_matric);
+        C = mutation(A, w, L, distance_matrix);
 
         % 选择下一代
-        [A, current_optimal_path, current_optimal_path_length] = select_next_generation(A, B, C, w, L, distance_matric);
+        [A, current_optimal_path, current_optimal_path_length] = select_next_generation(A, B, C, w, L, distance_matrix);
         
         % 记录重复次数（重复次数过高表示陷入局部最优解）
         if current_optimal_path_length == last_optimal_path_length

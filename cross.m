@@ -1,4 +1,4 @@
-function [ B ] = cross( A, w, L, distance_matric )
+function [ B ] = cross( A, w, L, distance_matrix )
 % A交叉产生子代B
 
 B = A(randperm(w), :);
@@ -13,7 +13,7 @@ for i = 1:2:w
 end                                                      % 交换完毕，产生w个新个体
 
 [~, cross_path_table] = sort(B, 2);                    % 对每一行的元素进行排序，获取所有的路径
-B = normalization(circle_modification(cross_path_table, w, L, distance_matric), L);
+B = normalization(circle_modification(cross_path_table, w, L, distance_matrix), L);
 
 end
 

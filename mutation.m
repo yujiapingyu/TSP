@@ -1,4 +1,4 @@
-function [ C ] = mutation( A, w, L, distance_matric )
+function [ C ] = mutation( A, w, L, distance_matrix )
 % A变异产生子代C
 
 C = A;             
@@ -11,7 +11,7 @@ for i=1:w
 end
 
 [~, mutation_path_table] = sort(C, 2);                    % 对每一行的元素进行排序，获取所有的路径
-C = normalization(circle_modification(mutation_path_table, w, L, distance_matric), L);
+C = normalization(circle_modification(mutation_path_table, w, L, distance_matrix), L);
 
 end
 

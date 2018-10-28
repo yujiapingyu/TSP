@@ -1,4 +1,4 @@
-function [ A_next, optimal_path, optimal_path_length ] = select_next_generation_improved( A, B, C, w, L, distance_matric )
+function [ A_next, optimal_path, optimal_path_length ] = select_next_generation( A, B, C, w, L, distance_matrix )
 % 选择遗传的下一代
 
 fp = 0.3;                               % 外来人口比例
@@ -13,7 +13,7 @@ all_path_length = [];
 all_path_length(1:total_length) = 0;            % 初始化所有路径的长度为0
 for path_index = 1:total_length                 % 计算每条路径的长度
     for i = 1:L-1   
-        all_path_length(path_index) = all_path_length(path_index) + distance_matric(path_table(path_index, i), path_table(path_index, i+1));
+        all_path_length(path_index) = all_path_length(path_index) + distance_matrix(path_table(path_index, i), path_table(path_index, i+1));
     end
 end
 
@@ -30,6 +30,6 @@ for i = up_n+1:w*(1-fp)
 end
 
 % 加入外来人口，但是前提是要对外来人口进行优化，不能把一些垃圾人种加进来
-A_next(int16(w*(1-fp))+1:w, :) = normalization(circle_modification(generate_population(int16(w*fp), L), int16(w*fp), L, distance_matric), L);
+A_next(int16(w*(1-fp))+1:w, :) = normalization(circle_modification(generate_population(int16(w*fp), L), int16(w*fp), L, distance_matrix), L);
 
 
