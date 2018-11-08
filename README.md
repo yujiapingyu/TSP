@@ -15,7 +15,7 @@
 ### 文件说明：
 | 序号 | 文件名 | 说明 |
 | ------ | ------ | ------ |
-| 1 | main.m | 140.213 |
+| 1 | main.m | 主函数 |
 | 2 | get_distance_matrix.m | 获取距离矩阵 |
 | 3 | generate_population.m | 生成初始种群 |
 | 4 | circle_modification.m | 改良圈 |
